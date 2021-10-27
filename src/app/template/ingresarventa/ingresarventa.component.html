@@ -1,0 +1,211 @@
+<h4 class="m-4">Ingresar Venta</h4>
+<hr />
+
+<!-- listado productos -->
+<div class="table-responsive col-sm-4 m-4">
+  <table
+    class="table table-sm table-striped table-condensed table-hover pointer"
+  >
+    <thead class="table-header-text">
+      <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>PRECIO</th>
+        <th>STOCK</th>
+        <th>CANTIDAD</th>
+      </tr>
+    </thead>
+    <tbody class="table-body-text">
+      <tr *ngFor="let producto of arproductos; let id = index">
+        <td>
+          {{ producto.producto_id }}
+        </td>
+        <td>
+          {{ producto.nombre }}
+        </td>
+        <td>
+          {{ producto.precio }}
+        </td>
+        <td>
+          {{ producto.stock }}
+        </td>
+        <td>
+          <input
+            type="number"
+            [(ngModel)]="producto.cantidad"
+            (input)="onCantidad(id, producto)"
+            min="1"
+            max="999"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--  -->
+
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+  <div>
+    <div class="form-group row m-2">
+      <label class="col-2 col-form-label">Producto</label>
+      <div class="col-2">
+        <select class="form-control" formControlName="id_producto">
+          <option selected></option>
+          <option
+            *ngFor="let prod of listaproductos"
+            [ngValue]="prod.producto_id"
+          >
+            {{ prod.nombre }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        <button
+          type="button"
+          class="btn btn-primary btn-block"
+          (click)="agregarProducto()"
+          [disabled]="
+            forma.controls.id_producto.value === null ||
+            forma.controls.id_producto.value === ''
+          "
+        >
+          <i class="fas fa-search"></i>
+          Agregar
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group row m-2">
+      <label class="col-2 col-form-label">Cliente</label>
+      <div class="col-2">
+        <select
+          class="form-control"
+          formControlName="rut_cliente"
+          [class.is-invalid]="rutNoValido"
+        >
+          <option selected></option>
+          <option *ngFor="let cli of arclientes"
+            [ngValue]="cli.rut_cliente">
+            {{ cli.rut_cliente }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="form-group row m-2">
+      <label class="col-2 col-form-label">Fecha</label>
+      <div class="col-2">
+        <input
+          class="form-control"
+          type="date"
+          placeholder="DD/MM/YYYY"
+          formControlName="fecha"
+          [class.is-invalid]="fechaNoValido"
+        />
+        <small *ngIf="fechaNoValido" class="text-danger"> Ingrese Fecha </small>
+      </div>
+    </div>
+
+    <!-- <div class="form-group row m-2 mt-4">
+
+          <label class="col-2 col-form-label">ID Producto</label>
+          <div class="col-2">
+            <input class="form-control"
+                  type="text"
+                  placeholder="ID Producto"
+                  formControlName="id_producto">
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-primary btn-block"
+              (click)="buscarProducto()"
+              [disabled]="forma.controls.id_producto.value===null ||
+                forma.controls.id_producto.value===''">
+              <i class="fas fa-search"></i>
+              Agregar
+            </button>
+          </div>
+
+        </div> -->
+
+    <div class="form-group row m-2">
+      <label class="col-2 col-form-label">IVA</label>
+      <div class="col-2">
+        <input
+          class="form-control"
+          type="number"
+          placeholder="IVA"
+          formControlName="iva"
+          min="0"
+          max="999999"
+          [class.is-invalid]="ivaNoValido"
+        />
+        <small *ngIf="ivaNoValido" class="text-danger"> Ingrese IVA </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row m-2">
+    <label class="col-2 col-form-label">Descuento</label>
+    <div class="col-2">
+      <input
+        class="form-control"
+        type="number"
+        placeholder="Descuento"
+        formControlName="descuento"
+        min="0"
+        max="999999"
+        [class.is-invalid]="descuentoNoValido"
+      />
+      <small *ngIf="descuentoNoValido" class="text-danger">
+        Ingrese Descuento
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group row m-2">
+    <label class="col-2 col-form-label">Total</label>
+    <div class="col-2">
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Total"
+        min="1"
+        max="999999"
+        formControlName="total"
+      />
+    </div>
+  </div>
+
+  <div class="form-group row m-2 mt-4">
+    <div class="col-md-1">
+      <button
+        type="submit"
+        class="btn btn-success btn-block"
+        [disabled]="!forma.valid || arproductos.length < 1"
+      >
+        Guardar
+      </button>
+    </div>
+
+    <div class="col-md-1">
+      <button
+        type="button"
+        class="btn btn-secondary btn-block"
+        (click)="limpiar()"
+      >
+        Limpiar
+      </button>
+    </div>
+
+    <div class="col-md-1">
+      <button
+        type="button"
+        class="btn btn-danger btn-block"
+        (click)="eliminar()" *ngIf="flageliminar"
+      >
+        Eliminar
+      </button>
+    </div>
+  </div>
+</form>

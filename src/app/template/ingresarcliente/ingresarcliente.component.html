@@ -1,0 +1,119 @@
+<h4 class="m-2">Ingresar Cliente </h4>
+<hr>
+  <form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+    <div>
+        <div class="form-group row m-2">
+
+          <label class="col-2 col-form-label">Rut</label>
+          <div class="col-2">
+            <input class="form-control"
+                  type="text"
+                  placeholder="XXXXXXXX-X"
+                  formControlName="rut_cliente"
+                  [class.is-invalid]="rutNoValido">
+            <small *ngIf="rutNoValido" class="text-danger">
+              Ingrese Rut, mínimo 9 carácteres
+            </small>
+          </div>
+
+        </div>
+
+        <div class="form-group row m-2">
+
+          <label class="col-2 col-form-label">Nombre</label>
+          <div class="col">
+            <input class="form-control"
+                  type="text"
+                  placeholder="Nombre"
+                  formControlName="nombre"
+                  [class.is-invalid]="nombreNoValido">
+            <small *ngIf="nombreNoValido" class="text-danger">
+              Ingrese Nombre, mínimo 3 carácteres
+            </small>
+          </div>
+
+        </div>
+
+        <div class="form-group row m-2">
+
+          <label class="col-2 col-form-label">Apellido</label>
+          <div class="col">
+            <input class="form-control"
+                  type="text"
+                  placeholder="Apellido"
+                  formControlName="apellido"
+                  [class.is-invalid]="apellidoNoValido">
+            <small *ngIf="apellidoNoValido" class="text-danger">
+              Ingrese Apellido, mínimo 3 carácteres
+            </small>
+          </div>
+
+        </div>
+    </div>
+
+    <div class="form-group row m-2">
+
+      <label class="col-2 col-form-label">Correo</label>
+      <div class="col">
+        <input class="form-control"
+              type="email"
+              placeholder="Correo electrónico"
+              formControlName="correo"
+              [class.is-invalid]="correoNoValido">
+        <small *ngIf="correoNoValido" class="text-danger">
+          Ingrese Correo válido
+        </small>
+      </div>
+
+    </div>
+
+    <div class="form-group row m-2">
+      <label class="col-2 col-form-label">Dirección</label>
+      <div class="col">
+        <input class="form-control"
+              type="text"
+              placeholder="Dirección"
+              formControlName="direccion"
+              [class.is-invalid]="direccionNoValido">
+        <small *ngIf="direccionNoValido" class="text-danger">
+          Ingrese Dirección, mínimo 3 carácteres
+        </small>
+      </div>
+
+    </div>
+
+    <div class="form-group row m-2">
+
+      <label class="col-2 col-form-label">Estado</label>
+      <div class="col-2">
+        <select class='form-control'
+        formControlName='estado'
+        [class.is-invalid]="estadoNoValido">
+          <option selected></option>
+          <option selected>activado</option>
+          <option selected>desactivado</option>
+        </select>
+      </div>
+
+    </div>
+
+
+  <div class="form-group row m-2 mt-4">
+
+      <div class="col-md-1">
+        <button type="submit" class="btn btn-success btn-block"
+          [disabled]="!forma.valid">
+          Guardar
+        </button>
+      </div>
+
+      <div class="col-md-1">
+        <button class="btn btn-secondary btn-block"
+        (click)="this.forma.reset()">
+        Limpiar
+      </button>
+      </div>
+
+    </div>
+
+</form>

@@ -1,0 +1,38 @@
+<h4 class="m-4">Lista Ventas</h4>
+<hr />
+
+<!-- listado ventas -->
+<div class="table-responsive col-sm-4 m-4">
+  <table
+    class="table table-sm table-striped table-condensed table-hover pointer"
+  >
+    <thead class="table-header-text">
+      <tr>
+        <th>ID</th>
+        <th>CANTIDAD</th>
+        <th>CLIENTE</th>
+        <th>SUBTOTAL</th>
+      </tr>
+    </thead>
+    <tbody class="table-body-text">
+      <tr *ngFor="let venta of listdetalle; let id = index">
+        <td>
+          <b><u><a style="cursor: pointer" (click)="onDetalle(venta.venta_id)">
+            <p>{{ venta.venta_id }}</p>
+          </a></u></b>
+        </td>
+        <td>
+          {{ venta.cantidad }}
+        </td>
+        <td>
+          {{ venta.rut_cliente }}
+        </td>
+        <td>
+          {{ venta.subtotal }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--  -->
+
